@@ -102,37 +102,6 @@
       color: white;
     }
     
-    .contenedor-botones {
-      margin: 0.3rem 0;
-      display: flex;
-      justify-content: center;
-    }
-    
-    button {
-      padding: 1rem 2rem;
-      font-size: 1.8rem;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background-color: var(--color-boton);
-      color: var(--color-primario);
-      font-weight: bold;
-      transition: all 0.2s;
-      margin: 0 0.5rem;
-    }
-    
-    button:hover {
-      background-color: #e0e0e0;
-      transform: scale(1.02);
-    }
-    
-    button.principal {
-      background-color: var(--color-primario);
-      color: white;
-      font-size: 2rem;
-      padding: 1.2rem 2.5rem;
-    }
-    
     .botones-estado {
       display: flex;
       justify-content: center;
@@ -141,8 +110,8 @@
     }
     
     .boton-estado {
-      font-size: 1.8rem;
-      padding: 1rem 1.5rem;
+      font-size: 2rem;
+      padding: 1.2rem 2rem;
       transition: all 0.2s;
       border: none;
       border-radius: 8px;
@@ -150,7 +119,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      white-space: nowrap; /* Evita que el texto se divida en dos líneas */
+      white-space: nowrap;
     }
     
     .premiado {
@@ -179,7 +148,7 @@
     }
     
     #historial {
-      margin-top: 0.8rem;
+      margin-top: 1.5rem;
       text-align: center;
       width: 100%;
       background: var(--color-fondo);
@@ -236,13 +205,9 @@
         font-size: 1.8rem;
       }
       
-      button.principal {
-        font-size: 1.8rem;
-      }
-      
       .boton-estado {
         font-size: 1.6rem;
-        padding: 0.8rem 1.2rem;
+        padding: 1rem 1.5rem;
       }
       
       .entrada-historial {
@@ -274,16 +239,12 @@
   </div>
 
   <div class="botones-estado">
-    <button class="boton-estado premiado" onclick="marcarPremiado()">
+    <button class="boton-estado premiado" onclick="realizarSorteo('Premiado')">
       <span class="emoji">😊</span> Premiado
     </button>
-    <button class="boton-estado agua" onclick="marcarAlAgua()">
+    <button class="boton-estado agua" onclick="realizarSorteo('Al agua')">
       <span class="emoji">😢</span> Al agua
     </button>
-  </div>
-
-  <div class="contenedor-botones">
-    <button class="principal" onclick="sortear()">Sortear</button>
   </div>
 
   <div id="historial">
@@ -301,7 +262,6 @@
     const numeroSorteadoElement = document.getElementById('numeroSorteado');
     const estadoResultadoElement = document.getElementById('estadoResultado');
     const entradasHistorialElement = document.getElementById('entradasHistorial');
-    let estadoActual = null;
     
     function formatFecha(fecha) {
       const horas = String(fecha.getHours()).padStart(2, '0');
@@ -309,42 +269,25 @@
       return `${horas}:${minutos}`;
     }
     
-    function marcarPremiado() {
-      estadoActual = 'Premiado 😊';
-      estadoResultadoElement.textContent = 'PREMIADO 😊';
-      estadoResultadoElement.className = 'resultado-estado premiado';
-      estadoResultadoElement.style.display = 'inline-block';
-    }
-    
-    function marcarAlAgua() {
-      estadoActual = 'Al agua 😢';
-      estadoResultadoElement.textContent = 'AL AGUA 😢';
-      estadoResultadoElement.className = 'resultado-estado agua';
-      estadoResultadoElement.style.display = 'inline-block';
-    }
-    
-    function sortear() {
-      if (!estadoActual) {
-        alert('Debes seleccionar "Premiado" o "Al agua" antes de sortear');
-        return;
-      }
-      
+    function realizarSorteo(estado) {
       const numeroRifa = Math.floor(Math.random() * 43) + 1;
       const numeroSorteado = Math.floor(Math.random() * 20) + 1;
       
       numeroRifaElement.textContent = numeroRifa;
       numeroSorteadoElement.textContent = numeroSorteado;
       
+      // Mostrar estado seleccionado
+      const emoji = estado === 'Premiado' ? '😊' : '😢';
+      estadoResultadoElement.textContent = estado.toUpperCase() + ' ' + emoji;
+      estadoResultadoElement.className = 'resultado-estado ' + (estado === 'Premiado' ? 'premiado' : 'agua');
+      estadoResultadoElement.style.display = 'inline-block';
+      
       const ahora = new Date();
-      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} | ${estadoActual} (${formatFecha(ahora)})`;
+      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} | ${estado} ${emoji} (${formatFecha(ahora)})`;
       
       historialDatos.push(entradaTexto);
       mostrarEntradaHistorial(entradaTexto);
       entradasHistorialElement.scrollTop = entradasHistorialElement.scrollHeight;
-      
-      // Resetear estado para el próximo sorteo
-      estadoActual = null;
-      estadoResultadoElement.style.display = 'none';
     }
     
     function mostrarEntradaHistorial(texto) {
