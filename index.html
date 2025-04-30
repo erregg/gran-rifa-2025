@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Gran rifa</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     :root {
       --color-primario: #1a73e8;
@@ -256,7 +257,7 @@
     <h2>Historial de sorteos</h2>
     <div id="entradasHistorial"></div>
     <div class="acciones-historial">
-      <button onclick="descargarHistorial()">Descargar</button>
+      <button onclick="descargarHistorial()">Descargar Excel</button>
       <button onclick="borrarHistorialCompleto()">Borrar historial</button>
     </div>
   </div>
@@ -334,18 +335,42 @@
         return;
       }
       
-      const blob = new Blob([historialDatos.join('\n')], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
+      // Preparar los datos para Excel
+      const datosExcel = [
+        ['Número Rifa', 'Número Sorteado', 'Estado', 'Hora'] // Encabezados
+      ];
       
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `historial_rifa_${new Date().toISOString().slice(0,10)}.txt`;
+      // Procesar cada entrada del historial
+      historialDatos.forEach(entrada => {
+        // Extraer los datos usando expresiones regulares
+        const match = entrada.match(/Rifa: (\d+) \| Sorteado: (\d+) \| (Premiado|Al agua).*?\((\d{2}:\d{2})\)/);
+        if (match) {
+          datosExcel.push([
+            parseInt(match[1]),  // Número de rifa (como número)
+            parseInt(match[2]),  // Número sorteado (como número)
+            match[3],            // Estado (sin emoji)
+            match[4]             // Hora
+          ]);
+        }
+      });
       
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // Crear libro de Excel
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(datosExcel);
       
-      setTimeout(() => URL.revokeObjectURL(url), 100);
+      // Ajustar el ancho de las columnas
+      ws['!cols'] = [
+        {wch: 12},  // Ancho columna Número Rifa
+        {wch: 15},  // Ancho columna Número Sorteado
+        {wch: 12},  // Ancho columna Estado
+        {wch: 10}   // Ancho columna Hora
+      ];
+      
+      // Agregar hoja al libro
+      XLSX.utils.book_append_sheet(wb, ws, "Historial Rifa");
+      
+      // Generar archivo y descargar
+      XLSX.writeFile(wb, `historial_rifa_${new Date().toISOString().slice(0,10)}.xlsx`);
     }
   </script>
 </body>
