@@ -150,6 +150,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      white-space: nowrap; /* Evita que el texto se divida en dos líneas */
     }
     
     .premiado {
@@ -310,7 +311,7 @@
     
     function marcarPremiado() {
       estadoActual = 'Premiado 😊';
-      estadoResultadoElement.textContent = 'PREMIDO 😊';
+      estadoResultadoElement.textContent = 'PREMIADO 😊';
       estadoResultadoElement.className = 'resultado-estado premiado';
       estadoResultadoElement.style.display = 'inline-block';
     }
