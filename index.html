@@ -2,177 +2,318 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Gran rifa</title>
   <style>
+    /* Estilos base */
+    :root {
+      --color-primario: #1a73e8;
+      --color-secundario: #d32f2f;
+      --color-texto: #333;
+      --color-fondo: #ffffff;
+      --color-borde: #ccc;
+      --color-boton: #f1f3f4;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 20px 50px 50px 50px;
-      background-color: #ffffff;
+      padding: 15px;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
+    
+    /* Encabezados */
     h1 {
-      color: blue;
-	  font-size: 100px;
-	  margin-top: 0px;
-	  margin-bottom: 10px; /* Añade esta línea para reducir el espacio inferior */
+      color: var(--color-primario);
+      font-size: 3rem;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.2;
     }
-
-h2 {
-  margin-top: 0px; /* Añade esta línea para reducir el espacio superior */
-  margin-bottom: 80px; /* Puedes ajustar este valor según necesites */
-}
-
+    
+    h2 {
+      margin: 0 0 2rem 0;
+      font-size: 1.8rem;
+      line-height: 1.3;
+    }
+    
+    .fecha-sorteo {
+      color: var(--color-secundario);
+    }
+    
+    /* Contenido principal */
+    .contenedor-campos {
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
     .campo {
-      margin: 20px 0;
-      font-size: 75px;
-	  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
     }
-
+    
     .etiqueta {
       font-weight: bold;
-      margin-right: 10px;
     }
-
+    
     .resultado {
       display: inline-block;
-      padding: 10px 20px;
-      background-color: #e0e0e0;
-      border: 2px solid #ccc;
+      padding: 0.5rem 1rem;
+      background-color: #f5f5f5;
+      border: 2px solid var(--color-borde);
       border-radius: 6px;
-      min-width: 75px;
-	  color: red;
-	  font-weight: bold;
+      min-width: 5rem;
+      color: var(--color-secundario);
+      font-weight: bold;
+      font-size: 1.8rem;
     }
-
-    .ayuda {
-      font-size: 16px;
-      margin-top: 30px;
-      color: #555;
+    
+    /* Botones */
+    .contenedor-botones {
+      margin: 2rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-
+    
     button {
-      padding: 10px 20px;
-      font-size: 75px;
-      margin: 15px 10px;
-	margin-top: 40px; /* Añade esta línea para reducir el espacio superior */
+      padding: 0.8rem 1.5rem;
+      font-size: 1.2rem;
       cursor: pointer;
-	 font-weight: bold;
-	  color: ##1000b2;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--color-boton);
+      color: var(--color-primario);
+      font-weight: bold;
+      transition: all 0.2s;
+      white-space: nowrap;
     }
-
+    
+    button:hover, button:focus {
+      background-color: #e0e0e0;
+      transform: scale(1.02);
+    }
+    
+    button.principal {
+      background-color: var(--color-primario);
+      color: white;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+    }
+    
+    /* Historial */
     #historial {
-      margin-top: 40px;
-      text-align: left;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-      background: #ffffff;
-      padding: 20px;
+      margin-top: 2rem;
+      text-align: center;
+      width: 100%;
+      max-width: 100%;
+      background: var(--color-fondo);
+      padding: 1rem;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      flex-grow: 1;
     }
-
+    
     #historial h2 {
-      text-align: center;
-      font-size: 18px;
-      color: #444;
+      font-size: 1.5rem;
+      color: var(--color-texto);
+      margin-bottom: 1rem;
     }
-
+    
+    #entradasHistorial {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    
     .entrada-historial {
-      border-bottom: 1px solid #ddd;
-      padding: 8px 0;
-      font-size: 40px;
-    }
-
-    .acciones-historial {
+      border-bottom: 1px solid #eee;
+      padding: 0.8rem 0;
+      font-size: 1.1rem;
       text-align: center;
-      margin-top: 15px;
+    }
+    
+    .acciones-historial {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    /* Media queries para ajustes responsivos */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .campo {
+        font-size: 1.2rem;
+      }
+      
+      .resultado {
+        font-size: 1.5rem;
+      }
+      
+      button.principal {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .entrada-historial {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      body {
+        padding: 10px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .contenedor-botones {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      button {
+        width: 100%;
+        max-width: 250px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>Gran rifa</h1>
-
-<h2 >
-   <span style="color: black;font-size: 80px;">Sorteo: </span> 
-   <span style="color: red;font-size: 80px; ">30-04-2025</span>
+  
+  <h2>
+    <span>Sorteo: </span> 
+    <span class="fecha-sorteo">30-04-2025</span>
   </h2>
 
-  <div class="campo">
-    <label class="etiqueta">Número de rifa:</label>
-    <label id="numeroRifa" class="resultado">--</label>
+  <div class="contenedor-campos">
+    <div class="campo">
+      <span class="etiqueta">Número de rifa:</span>
+      <span id="numeroRifa" class="resultado">--</span>
+    </div>
+
+    <div class="campo">
+      <span class="etiqueta">Número sorteado:</span>
+      <span id="numeroSorteado" class="resultado">--</span>
+    </div>
   </div>
 
-  <div class="campo">
-    <label class="etiqueta">Número sorteado:</label>
-    <label id="numeroSorteado" class="resultado">--</label>
-  </div>
-
-  <div>
-    <button onclick="sortear()">Sortear</button>
+  <div class="contenedor-botones">
+    <button class="principal" onclick="sortear()">Sortear</button>
   </div>
 
   <div id="historial">
-    <h2 style="font-size: 50px;">Historial de sorteos</h2>
+    <h2>Historial de sorteos</h2>
     <div id="entradasHistorial"></div>
     <div class="acciones-historial">
-      <button onclick="descargarHistorial()" style="padding: 6px 12px; font-size: 40px; color: black;">Descargar historial</button>
-      <button onclick="borrarHistorial()" style="padding: 6px 12px; font-size: 40px; color: black;">Borrar historial</button>
+      <button onclick="descargarHistorial()">Descargar historial</button>
+      <button onclick="borrarHistorial()">Borrar historial</button>
     </div>
   </div>
 
   <script>
-    let historialDatos = [];
-
+    // Variables globales
+    const historialDatos = [];
+    const numeroRifaElement = document.getElementById('numeroRifa');
+    const numeroSorteadoElement = document.getElementById('numeroSorteado');
+    const entradasHistorialElement = document.getElementById('entradasHistorial');
+    
+    // Función para formatear la fecha
     function formatFecha(fecha) {
       const horas = String(fecha.getHours()).padStart(2, '0');
       const minutos = String(fecha.getMinutes()).padStart(2, '0');
-      return `${horas}.${minutos}`;
+      return `${horas}:${minutos}`;
     }
-
+    
+    // Función principal de sorteo
     function sortear() {
       const numeroRifa = Math.floor(Math.random() * 43) + 1;
       const numeroSorteado = Math.floor(Math.random() * 20) + 1;
-
-      document.getElementById('numeroRifa').textContent = numeroRifa;
-      document.getElementById('numeroSorteado').textContent = numeroSorteado;
-
+      
+      // Mostrar resultados
+      numeroRifaElement.textContent = numeroRifa;
+      numeroSorteadoElement.textContent = numeroSorteado;
+      
+      // Crear entrada de historial
       const ahora = new Date();
-      const fechaHora = formatFecha(ahora);
-      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} (${fechaHora})`;
-
+      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} (${formatFecha(ahora)})`;
+      
       // Guardar y mostrar en historial
       historialDatos.push(entradaTexto);
+      mostrarEntradaHistorial(entradaTexto);
+      
+      // Scroll automático al historial
+      entradasHistorialElement.scrollTop = entradasHistorialElement.scrollHeight;
+    }
+    
+    // Mostrar entrada en el historial
+    function mostrarEntradaHistorial(texto) {
       const entradaHTML = document.createElement('div');
       entradaHTML.className = 'entrada-historial';
-      entradaHTML.textContent = entradaTexto;
-      document.getElementById('entradasHistorial').appendChild(entradaHTML);
+      entradaHTML.textContent = texto;
+      entradasHistorialElement.appendChild(entradaHTML);
     }
-
-    function limpiar() {
-      document.getElementById('numeroRifa').textContent = '--';
-      document.getElementById('numeroSorteado').textContent = '--';
-    }
-
+    
+    // Borrar historial
     function borrarHistorial() {
-      historialDatos = [];
-      document.getElementById('entradasHistorial').innerHTML = '';
+      if (historialDatos.length === 0) {
+        alert('El historial ya está vacío');
+        return;
+      }
+      
+      if (confirm('¿Estás seguro de borrar todo el historial?')) {
+        historialDatos.length = 0;
+        entradasHistorialElement.innerHTML = '';
+      }
     }
-
+    
+    // Descargar historial
     function descargarHistorial() {
       if (historialDatos.length === 0) {
         alert('No hay datos para descargar.');
         return;
       }
+      
       const blob = new Blob([historialDatos.join('\n')], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
-
+      
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'historial_rifa.txt';
+      a.download = `historial_rifa_${new Date().toISOString().slice(0,10)}.txt`;
+      
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      setTimeout(() => URL.revokeObjectURL(url), 100);
     }
   </script>
 </body>
