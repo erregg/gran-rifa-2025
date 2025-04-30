@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gran rifa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .campo {
+      margin: 20px 0;
+      font-size: 20px;
+    }
+
+    .etiqueta {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .resultado {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #e0e0e0; /* gris claro */
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      min-width: 60px;
+    }
+
+    .ayuda {
+      font-size: 16px;
+      margin-top: 30px;
+      color: #555;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 15px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gran rifa</h1>
+
+  <div class="campo">
+    <label class="etiqueta">Número de rifa:</label>
+    <label id="numeroRifa" class="resultado">--</label>
+  </div>
+
+  <div class="campo">
+    <label class="etiqueta">Número sorteado:</label>
+    <label id="numeroSorteado" class="resultado">--</label>
+  </div>
+
+  <div>
+    <button onclick="sortear()">Sortear</button>
+    <button onclick="limpiar()">Limpiar</button>
+  </div>
+
+  <div class="ayuda">
+    Presione el botón "Sortear" para comenzar
+  </div>
+
+  <script>
+    function sortear() {
+      const numeroRifa = Math.floor(Math.random() * 43) + 1;
+      const numeroSorteado = Math.floor(Math.random() * 20) + 1;
+
+      document.getElementById('numeroRifa').textContent = numeroRifa;
+      document.getElementById('numeroSorteado').textContent = numeroSorteado;
+    }
+
+    function limpiar() {
+      document.getElementById('numeroRifa').textContent = '--';
+      document.getElementById('numeroSorteado').textContent = '--';
+    }
+  </script>
+</body>
+</html>
