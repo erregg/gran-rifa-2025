@@ -15,6 +15,8 @@
       --color-agua: #EF9A9A;
       --color-premiado-hover: #3d8b40;
       --color-agua-hover: #E57373;
+      --color-reset: #f44336;
+      --color-reset-hover: #d32f2f;
     }
     
     * {
@@ -134,6 +136,21 @@
       transform: scale(1.02);
     }
     
+    .boton-reset {
+      background-color: var(--color-reset);
+      color: white;
+      font-size: 1.4rem;
+      padding: 0.7rem 1.5rem;
+      margin: 1rem auto;
+      width: 90%;
+      max-width: 300px;
+    }
+    
+    .boton-reset:hover {
+      background-color: var(--color-reset-hover);
+      transform: scale(1.02);
+    }
+    
     .emoji {
       font-size: 1.3em;
     }
@@ -223,12 +240,16 @@
     </button>
   </div>
 
+  <button class="boton-reset" onclick="resetearTodo()">
+    <span class="emoji">🧹</span> Borrar todo
+  </button>
+
   <div id="historial">
     <h2>Historial de sorteos</h2>
     <div id="entradasHistorial"></div>
     <div class="acciones-historial">
       <button onclick="descargarHistorial()">Descargar</button>
-      <button onclick="borrarHistorial()">Borrar</button>
+      <button onclick="borrarHistorial()">Borrar historial</button>
     </div>
   </div>
 
@@ -287,6 +308,19 @@
       }
       
       if (confirm('¿Estás seguro de borrar todo el historial?')) {
+        historialDatos.length = 0;
+        entradasHistorialElement.innerHTML = '';
+      }
+    }
+    
+    function resetearTodo() {
+      if (confirm('¿Estás seguro de borrar TODOS los datos (campos e historial)?')) {
+        // Limpiar campos
+        numeroRifaElement.textContent = '--';
+        numeroSorteadoElement.textContent = '--';
+        estadoResultadoElement.style.display = 'none';
+        
+        // Limpiar historial
         historialDatos.length = 0;
         entradasHistorialElement.innerHTML = '';
       }
