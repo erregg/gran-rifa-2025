@@ -12,6 +12,8 @@
       --color-fondo: #ffffff;
       --color-borde: #ccc;
       --color-boton: #f1f3f4;
+      --color-premiado: #4CAF50;
+      --color-agua: #2196F3;
     }
     
     * {
@@ -79,10 +81,30 @@
       font-size: 2.2rem;
     }
     
+    .resultado-estado {
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+    }
+    
+    .premiado {
+      background-color: var(--color-premiado);
+      color: white;
+    }
+    
+    .agua {
+      background-color: var(--color-agua);
+      color: white;
+    }
+    
     .contenedor-botones {
       margin: 0.3rem 0;
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
     
     button {
@@ -95,7 +117,6 @@
       color: var(--color-primario);
       font-weight: bold;
       transition: all 0.2s;
-      margin: 0 0.5rem;
     }
     
     button:hover {
@@ -108,6 +129,18 @@
       color: white;
       font-size: 2rem;
       padding: 1.2rem 2.5rem;
+    }
+    
+    .botones-estado {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    
+    .boton-estado {
+      font-size: 1.6rem;
+      padding: 0.8rem 1.5rem;
     }
     
     #historial {
@@ -163,12 +196,21 @@
         font-size: 2rem;
       }
       
+      .resultado-estado {
+        font-size: 1.8rem;
+      }
+      
       button.principal {
         font-size: 1.8rem;
       }
       
       .entrada-historial {
         font-size: 1.4rem;
+      }
+      
+      .boton-estado {
+        font-size: 1.4rem;
+        padding: 0.6rem 1.2rem;
       }
     }
   </style>
@@ -191,6 +233,13 @@
       <span class="etiqueta">Número sorteado:</span>
       <span id="numeroSorteado" class="resultado">--</span>
     </div>
+    
+    <div id="estadoResultado" class="resultado-estado" style="display: none;"></div>
+  </div>
+
+  <div class="botones-estado">
+    <button class="boton-estado premiado" onclick="marcarPremiado()">Premiado</button>
+    <button class="boton-estado agua" onclick="marcarAlAgua()">Al agua</button>
   </div>
 
   <div class="contenedor-botones">
@@ -210,7 +259,9 @@
     const historialDatos = [];
     const numeroRifaElement = document.getElementById('numeroRifa');
     const numeroSorteadoElement = document.getElementById('numeroSorteado');
+    const estadoResultadoElement = document.getElementById('estadoResultado');
     const entradasHistorialElement = document.getElementById('entradasHistorial');
+    let estadoActual = null;
     
     function formatFecha(fecha) {
       const horas = String(fecha.getHours()).padStart(2, '0');
@@ -218,7 +269,26 @@
       return `${horas}:${minutos}`;
     }
     
+    function marcarPremiado() {
+      estadoActual = 'Premiado';
+      estadoResultadoElement.textContent = 'PREMIDO';
+      estadoResultadoElement.className = 'resultado-estado premiado';
+      estadoResultadoElement.style.display = 'inline-block';
+    }
+    
+    function marcarAlAgua() {
+      estadoActual = 'Al agua';
+      estadoResultadoElement.textContent = 'AL AGUA';
+      estadoResultadoElement.className = 'resultado-estado agua';
+      estadoResultadoElement.style.display = 'inline-block';
+    }
+    
     function sortear() {
+      if (!estadoActual) {
+        alert('Debes seleccionar "Premiado" o "Al agua" antes de sortear');
+        return;
+      }
+      
       const numeroRifa = Math.floor(Math.random() * 43) + 1;
       const numeroSorteado = Math.floor(Math.random() * 20) + 1;
       
@@ -226,17 +296,30 @@
       numeroSorteadoElement.textContent = numeroSorteado;
       
       const ahora = new Date();
-      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} (${formatFecha(ahora)})`;
+      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} | ${estadoActual} (${formatFecha(ahora)})`;
       
       historialDatos.push(entradaTexto);
       mostrarEntradaHistorial(entradaTexto);
       entradasHistorialElement.scrollTop = entradasHistorialElement.scrollHeight;
+      
+      // Resetear estado para el próximo sorteo
+      estadoActual = null;
+      estadoResultadoElement.style.display = 'none';
     }
     
     function mostrarEntradaHistorial(texto) {
       const entradaHTML = document.createElement('div');
       entradaHTML.className = 'entrada-historial';
       entradaHTML.textContent = texto;
+      
+      // Resaltar según el estado
+      if (texto.includes('Premiado')) {
+        entradaHTML.style.color = 'var(--color-premiado)';
+        entradaHTML.style.fontWeight = 'bold';
+      } else if (texto.includes('Al agua')) {
+        entradaHTML.style.color = 'var(--color-agua)';
+      }
+      
       entradasHistorialElement.appendChild(entradaHTML);
     }
     
