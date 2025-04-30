@@ -5,20 +5,22 @@
   <title>Gran rifa</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      
-      background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px 50px 50px 50px; /* menos espacio arriba */
+  background-color: #ffffff;
     }
 
     h1 {
       color: #333;
+	  margin-bottom: 10px
     }
-
+	
     .campo {
       margin: 20px 0;
       font-size: 90px;
 	  color: red;
+	  font-weight: bold;
 	  
     }
 
@@ -99,21 +101,17 @@
     <label id="numeroSorteado" class="resultado" >--</label>
   </div>
 <br><br>
-  <div>
+  <div aling="center">
     <button onclick="sortear()">Sortear</button>
-    <button onclick="limpiar()">Limpiar</button>
   </div>
 <br>
-  <div class="ayuda" style="color: black">
-   <b>Presione el botón "Sortear"</b>
-  </div>
 
   <div id="historial">
     <h2>Historial de sorteos</h2>
     <div id="entradasHistorial"></div>
     <div class="acciones-historial">
-      <button onclick="descargarHistorial()">Descargar historial</button>
-      <button onclick="borrarHistorial()">Borrar historial</button>
+      <button onclick="descargarHistorial()" style="font-size: 40px;">Descargar historial</button>
+      <button onclick="borrarHistorial()" style="font-size: 40px;">Borrar historial</button>
     </div>
   </div>
 
