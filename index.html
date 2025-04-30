@@ -7,7 +7,6 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px;
       background-color: #ffffff;
     }
 
@@ -17,12 +16,13 @@
 
     .campo {
       margin: 20px 0;
-      font-size: 20px;
+      font-size: 50px;
     }
 
     .etiqueta {
       font-weight: bold;
       margin-right: 10px;
+	  font-size: 80px;
     }
 
     .resultado {
@@ -35,26 +35,26 @@
     }
 
     .ayuda {
-      font-size: 16px;
+      font-size: 50px;
       margin-top: 30px;
       color: #555;
     }
 
     button {
       padding: 10px 20px;
-      font-size: 16px;
+      font-size: 50px;
       margin: 15px 10px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1 style="color: blue; font-size: 70px;">Gran rifa</h1>
+  <h1 style="color: blue; font-size: 100px;">Gran rifa</h1>
   <h2>
-   <span style="color: black;font-size: 30px;">Fecha de sorteo: </span> 
-   <span style="color: red;font-size: 30px; ">30-04-2025</span>
+   <span style="color: black;font-size: 90px;">Fecha de sorteo: </span> 
+   <span style="color: red;font-size: 90px; ">30-04-2025</span>
   </h2>
-	<br><br>
+	<br><br><br>
   <div class="campo">
     <label class="etiqueta">Número de rifa:</label>
     <label id="numeroRifa" class="resultado" style="font-size: 60px;color: red">--</label>
@@ -64,13 +64,13 @@
     <label class="etiqueta">Número sorteado:</label>
     <label id="numeroSorteado" class="resultado" style="font-size: 60px;color: red">--</label>
   </div>
-
+<br>
   <div>
     <button onclick="sortear()">Sortear</button>
     <button onclick="limpiar()">Limpiar</button>
   </div>
 
-  <div class="ayuda" style="color: black;font-size: 20px; ">
+  <div class="ayuda" style="color: black">
    <b>Presione el botón "Sortear" para comenzar</b>
   </div>
 
