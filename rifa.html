@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gran rifa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    .campo {
+      margin: 15px;
+    }
+    label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 15px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gran rifa</h1>
+
+  <div class="campo">
+    <label for="numeroRifa">Número de rifa:</label>
+    <input type="text" id="numeroRifa" readonly>
+  </div>
+
+  <div class="campo">
+    <label for="numeroSorteado">Número sorteado:</label>
+    <input type="text" id="numeroSorteado" readonly>
+  </div>
+
+  <div>
+    <button onclick="sortear()">Sortear</button>
+    <button onclick="limpiar()">Limpiar</button>
+  </div>
+
+  <script>
+    function sortear() {
+      const rifa = Math.floor(Math.random() * 44) + 1;
+      const sorteado = Math.floor(Math.random() * 50) + 1;
+      document.getElementById('numeroRifa').value = rifa;
+      document.getElementById('numeroSorteado').value = sorteado;
+    }
+
+    function limpiar() {
+      document.getElementById('numeroRifa').value = '';
+      document.getElementById('numeroSorteado').value = '';
+    }
+  </script>
+</body>
+</html>
