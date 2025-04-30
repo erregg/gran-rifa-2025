@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Gran rifa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,27 +13,25 @@
 
     h1 {
       color: #333;
-      margin-bottom: 5px;
-      margin-top: 5px;
+	  font-size: 100px;
+	  margin-top: 0px;
+	  margin-bottom: 10px; /* Añade esta línea para reducir el espacio inferior */
     }
+
+h2 {
+  margin-top: 0px; /* Añade esta línea para reducir el espacio superior */
+  margin-bottom: 60px; /* Puedes ajustar este valor según necesites */
+}
 
     .campo {
       margin: 20px 0;
-      font-size: 80px;
-      color: red;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: nowrap;
-      gap: 30px;
+      font-size: 70px;
+	  
     }
 
     .etiqueta {
       font-weight: bold;
-      font-size: 80px;
-      color: black;
-      white-space: nowrap;
+      margin-right: 10px;
     }
 
     .resultado {
@@ -44,26 +41,27 @@
       border: 2px solid #ccc;
       border-radius: 6px;
       min-width: 60px;
+	  color: red;
+	  font-weight: bold;
     }
 
     .ayuda {
-      font-size: 80px;
+      font-size: 16px;
       margin-top: 30px;
       color: #555;
     }
 
     button {
       padding: 10px 20px;
-      font-size: 80px;
+      font-size: 60px;
       margin: 15px 10px;
       cursor: pointer;
-      font-weight: bold;
     }
 
     #historial {
       margin-top: 40px;
       text-align: left;
-      max-width: 1200px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
       background: #ffffff;
@@ -74,61 +72,28 @@
 
     #historial h2 {
       text-align: center;
-      font-size: 30px;
+      font-size: 18px;
       color: #444;
     }
 
     .entrada-historial {
       border-bottom: 1px solid #ddd;
       padding: 8px 0;
-      font-size: 60px;
+      font-size: 15px;
     }
 
     .acciones-historial {
       text-align: center;
       margin-top: 15px;
     }
-
-.acciones-historial button {
-  font-size: 30px;
-  padding: 8px 16px;
-}
-
-    @media (max-width: 768px) {
-      .campo {
-        flex-direction: column;
-        font-size: 60px;
-      }
-
-      .etiqueta {
-        font-size: 60px;
-      }
-
-      .resultado {
-        font-size: 60px;
-      }
-
-      button {
-        font-size: 60px;
-        width: 100%;
-      }
-
-      .ayuda {
-        font-size: 60px;
-      }
-
-      .entrada-historial {
-        font-size: 50px;
-      }
-
-    }
   </style>
 </head>
 <body>
-  <h1 style="color: blue; font-size: 120px;">Gran rifa</h1>
-  <h2 style="margin-top: 70px; margin-bottom: 70px;">
-    <span style="color: black;font-size: 80px;">Sorteo: </span> 
-    <span style="color: red;font-size: 80px;">30-04-2025</span>
+  <h1>Gran rifa</h1>
+
+<h2 >
+   <span style="color: black;font-size: 80px;">Sorteo: </span> 
+   <span style="color: red;font-size: 80px; ">30-04-2025</span>
   </h2>
 
   <div class="campo">
@@ -141,17 +106,16 @@
     <label id="numeroSorteado" class="resultado">--</label>
   </div>
 
-  <div align="center">
+  <div>
     <button onclick="sortear()">Sortear</button>
   </div>
-
 
   <div id="historial">
     <h2>Historial de sorteos</h2>
     <div id="entradasHistorial"></div>
     <div class="acciones-historial">
-      <button onclick="descargarHistorial()">Descargar historial</button>
-      <button onclick="borrarHistorial()">Borrar historial</button>
+      <button onclick="descargarHistorial()" style="padding: 6px 12px; font-size: 14px;">Descargar historial</button>
+      <button onclick="borrarHistorial()" style="padding: 6px 12px; font-size: 14px;">Borrar historial</button>
     </div>
   </div>
 
@@ -159,12 +123,9 @@
     let historialDatos = [];
 
     function formatFecha(fecha) {
-      const dia = String(fecha.getDate()).padStart(2, '0');
-      const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-      const año = fecha.getFullYear();
       const horas = String(fecha.getHours()).padStart(2, '0');
       const minutos = String(fecha.getMinutes()).padStart(2, '0');
-      return `${dia}-${mes}-${año}, ${horas}.${minutos}`;
+      return `${horas}.${minutos}`;
     }
 
     function sortear() {
@@ -178,6 +139,7 @@
       const fechaHora = formatFecha(ahora);
       const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} (${fechaHora})`;
 
+      // Guardar y mostrar en historial
       historialDatos.push(entradaTexto);
       const entradaHTML = document.createElement('div');
       entradaHTML.className = 'entrada-historial';
@@ -202,6 +164,7 @@
       }
       const blob = new Blob([historialDatos.join('\n')], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
+
       const a = document.createElement('a');
       a.href = url;
       a.download = 'historial_rifa.txt';
