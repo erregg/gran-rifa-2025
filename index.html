@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Gran rifa</title>
   <style>
-    /* Estilos base */
     :root {
       --color-primario: #1a73e8;
       --color-secundario: #d32f2f;
@@ -24,7 +23,7 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 15px;
+      padding: 10px;
       background-color: var(--color-fondo);
       color: var(--color-texto);
       min-height: 100vh;
@@ -32,38 +31,36 @@
       flex-direction: column;
     }
     
-    /* Encabezados */
     h1 {
       color: var(--color-primario);
-      font-size: 3rem;
-      margin: 0 0 0.5rem 0;
+      font-size: 3.5rem;
+      margin: 0 0 0.3rem 0;
       line-height: 1.2;
     }
     
     h2 {
-      margin: 0 0 2rem 0;
-      font-size: 1.8rem;
-      line-height: 1.3;
+      margin: 0 0 1rem 0;
+      font-size: 2.2rem;
+      line-height: 1.2;
     }
     
     .fecha-sorteo {
       color: var(--color-secundario);
     }
     
-    /* Contenido principal */
     .contenedor-campos {
-      margin: 1.5rem 0;
+      margin: 0.8rem 0;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
     }
     
     .campo {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 1.5rem;
+      gap: 0.3rem;
+      font-size: 2rem;
     }
     
     .etiqueta {
@@ -72,39 +69,36 @@
     
     .resultado {
       display: inline-block;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       background-color: #f5f5f5;
       border: 2px solid var(--color-borde);
-      border-radius: 6px;
-      min-width: 5rem;
+      border-radius: 8px;
+      min-width: 6rem;
       color: var(--color-secundario);
       font-weight: bold;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
     }
     
-    /* Botones */
     .contenedor-botones {
-      margin: 2rem 0;
+      margin: 0.3rem 0;
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
     }
     
     button {
-      padding: 0.8rem 1.5rem;
-      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      font-size: 1.8rem;
       cursor: pointer;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       background-color: var(--color-boton);
       color: var(--color-primario);
       font-weight: bold;
       transition: all 0.2s;
-      white-space: nowrap;
+      margin: 0 0.5rem;
     }
     
-    button:hover, button:focus {
+    button:hover {
       background-color: #e0e0e0;
       transform: scale(1.02);
     }
@@ -112,39 +106,36 @@
     button.principal {
       background-color: var(--color-primario);
       color: white;
-      font-size: 1.5rem;
-      padding: 1rem 2rem;
+      font-size: 2rem;
+      padding: 1.2rem 2.5rem;
     }
     
-    /* Historial */
     #historial {
-      margin-top: 2rem;
+      margin-top: 0.8rem;
       text-align: center;
       width: 100%;
-      max-width: 100%;
       background: var(--color-fondo);
       padding: 1rem;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       flex-grow: 1;
     }
     
     #historial h2 {
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: var(--color-texto);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
     
     #entradasHistorial {
       max-height: 200px;
       overflow-y: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
     
     .entrada-historial {
       border-bottom: 1px solid #eee;
       padding: 0.8rem 0;
-      font-size: 1.1rem;
+      font-size: 1.6rem;
       text-align: center;
     }
     
@@ -152,56 +143,32 @@
       display: flex;
       justify-content: center;
       gap: 0.8rem;
-      margin-top: 1rem;
-      flex-wrap: wrap;
+      margin-top: 0.8rem;
     }
     
-    /* Media queries para ajustes responsivos */
     @media (max-width: 600px) {
       h1 {
-        font-size: 2.2rem;
+        font-size: 3rem;
       }
       
       h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-      }
-      
-      .campo {
-        font-size: 1.2rem;
-      }
-      
-      .resultado {
-        font-size: 1.5rem;
-      }
-      
-      button.principal {
-        font-size: 1.3rem;
-        padding: 0.8rem 1.5rem;
-      }
-      
-      .entrada-historial {
-        font-size: 1rem;
-      }
-    }
-    
-    @media (max-width: 400px) {
-      body {
-        padding: 10px;
-      }
-      
-      h1 {
         font-size: 1.8rem;
       }
       
-      .contenedor-botones {
-        flex-direction: column;
-        align-items: center;
+      .campo {
+        font-size: 1.8rem;
       }
       
-      button {
-        width: 100%;
-        max-width: 250px;
+      .resultado {
+        font-size: 2rem;
+      }
+      
+      button.principal {
+        font-size: 1.8rem;
+      }
+      
+      .entrada-historial {
+        font-size: 1.4rem;
       }
     }
   </style>
@@ -234,47 +201,38 @@
     <h2>Historial de sorteos</h2>
     <div id="entradasHistorial"></div>
     <div class="acciones-historial">
-      <button onclick="descargarHistorial()">Descargar historial</button>
-      <button onclick="borrarHistorial()">Borrar historial</button>
+      <button onclick="descargarHistorial()">Descargar</button>
+      <button onclick="borrarHistorial()">Borrar</button>
     </div>
   </div>
 
   <script>
-    // Variables globales
     const historialDatos = [];
     const numeroRifaElement = document.getElementById('numeroRifa');
     const numeroSorteadoElement = document.getElementById('numeroSorteado');
     const entradasHistorialElement = document.getElementById('entradasHistorial');
     
-    // Función para formatear la fecha
     function formatFecha(fecha) {
       const horas = String(fecha.getHours()).padStart(2, '0');
       const minutos = String(fecha.getMinutes()).padStart(2, '0');
       return `${horas}:${minutos}`;
     }
     
-    // Función principal de sorteo
     function sortear() {
       const numeroRifa = Math.floor(Math.random() * 43) + 1;
       const numeroSorteado = Math.floor(Math.random() * 20) + 1;
       
-      // Mostrar resultados
       numeroRifaElement.textContent = numeroRifa;
       numeroSorteadoElement.textContent = numeroSorteado;
       
-      // Crear entrada de historial
       const ahora = new Date();
       const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} (${formatFecha(ahora)})`;
       
-      // Guardar y mostrar en historial
       historialDatos.push(entradaTexto);
       mostrarEntradaHistorial(entradaTexto);
-      
-      // Scroll automático al historial
       entradasHistorialElement.scrollTop = entradasHistorialElement.scrollHeight;
     }
     
-    // Mostrar entrada en el historial
     function mostrarEntradaHistorial(texto) {
       const entradaHTML = document.createElement('div');
       entradaHTML.className = 'entrada-historial';
@@ -282,7 +240,6 @@
       entradasHistorialElement.appendChild(entradaHTML);
     }
     
-    // Borrar historial
     function borrarHistorial() {
       if (historialDatos.length === 0) {
         alert('El historial ya está vacío');
@@ -295,7 +252,6 @@
       }
     }
     
-    // Descargar historial
     function descargarHistorial() {
       if (historialDatos.length === 0) {
         alert('No hay datos para descargar.');
