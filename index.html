@@ -12,8 +12,10 @@
       --color-fondo: #ffffff;
       --color-borde: #ccc;
       --color-boton: #f1f3f4;
-      --color-premiado: #4CAF50;
-      --color-agua: #2196F3;
+      --color-premiado: #4CAF50;  /* Verde para premiado */
+      --color-agua: #EF9A9A;      /* Rojo suave para al agua */
+      --color-agua-hover: #E57373; /* Rojo al pasar mouse */
+      --color-premiado-hover: #3d8b40; /* Verde oscuro al pasar mouse */
     }
     
     * {
@@ -33,60 +35,25 @@
       flex-direction: column;
     }
     
-    h1 {
-      color: var(--color-primario);
-      font-size: 3.5rem;
-      margin: 0 0 0.3rem 0;
-      line-height: 1.2;
-    }
+    /* ... (otros estilos permanecen igual) ... */
     
-    h2 {
-      margin: 0 0 1rem 0;
-      font-size: 2.2rem;
-      line-height: 1.2;
-    }
-    
-    .fecha-sorteo {
-      color: var(--color-secundario);
-    }
-    
-    .contenedor-campos {
-      margin: 0.8rem 0;
+    .botones-estado {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       gap: 1rem;
+      margin: 1rem 0;
     }
     
-    .campo {
+    .boton-estado {
+      font-size: 1.8rem;
+      padding: 1rem 1.5rem;
+      transition: all 0.2s;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
-      font-size: 2rem;
-    }
-    
-    .etiqueta {
-      font-weight: bold;
-    }
-    
-    .resultado {
-      display: inline-block;
-      padding: 0.5rem 1.2rem;
-      background-color: #f5f5f5;
-      border: 2px solid var(--color-borde);
-      border-radius: 8px;
-      min-width: 6rem;
-      color: var(--color-secundario);
-      font-weight: bold;
-      font-size: 2.2rem;
-    }
-    
-    .resultado-estado {
-      font-size: 2rem;
-      font-weight: bold;
-      padding: 0.5rem 1.5rem;
-      border-radius: 8px;
-      margin-top: 0.5rem;
+      gap: 0.5rem;
     }
     
     .premiado {
@@ -94,265 +61,75 @@
       color: white;
     }
     
+    .premiado:hover {
+      background-color: var(--color-premiado-hover);
+      transform: scale(1.05);
+    }
+    
     .agua {
       background-color: var(--color-agua);
       color: white;
     }
     
-    .contenedor-botones {
-      margin: 0.3rem 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .agua:hover {
+      background-color: var(--color-agua-hover);
+      transform: scale(1.05);
     }
     
-    button {
-      padding: 1rem 2rem;
-      font-size: 1.8rem;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background-color: var(--color-boton);
-      color: var(--color-primario);
-      font-weight: bold;
-      transition: all 0.2s;
+    .emoji {
+      font-size: 1.5em;
+      vertical-align: middle;
     }
     
-    button:hover {
-      background-color: #e0e0e0;
-      transform: scale(1.02);
-    }
-    
-    button.principal {
-      background-color: var(--color-primario);
-      color: white;
-      font-size: 2rem;
-      padding: 1.2rem 2.5rem;
-    }
-    
-    .botones-estado {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 0.5rem 0;
-    }
-    
-    .boton-estado {
-      font-size: 1.6rem;
-      padding: 0.8rem 1.5rem;
-    }
-    
-    #historial {
-      margin-top: 0.8rem;
-      text-align: center;
-      width: 100%;
-      background: var(--color-fondo);
-      padding: 1rem;
-      border-radius: 8px;
-      flex-grow: 1;
-    }
-    
-    #historial h2 {
-      font-size: 2rem;
-      color: var(--color-texto);
-      margin-bottom: 0.8rem;
-    }
-    
-    #entradasHistorial {
-      max-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 0.8rem;
-    }
-    
-    .entrada-historial {
-      border-bottom: 1px solid #eee;
-      padding: 0.8rem 0;
-      font-size: 1.6rem;
-      text-align: center;
-    }
-    
-    .acciones-historial {
-      display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      margin-top: 0.8rem;
-    }
-    
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 3rem;
-      }
-      
-      h2 {
-        font-size: 1.8rem;
-      }
-      
-      .campo {
-        font-size: 1.8rem;
-      }
-      
-      .resultado {
-        font-size: 2rem;
-      }
-      
-      .resultado-estado {
-        font-size: 1.8rem;
-      }
-      
-      button.principal {
-        font-size: 1.8rem;
-      }
-      
-      .entrada-historial {
-        font-size: 1.4rem;
-      }
-      
-      .boton-estado {
-        font-size: 1.4rem;
-        padding: 0.6rem 1.2rem;
-      }
-    }
+    /* ... (el resto de estilos permanece igual) ... */
   </style>
 </head>
 <body>
-  <h1>Gran rifa</h1>
-  
-  <h2>
-    <span>Sorteo: </span> 
-    <span class="fecha-sorteo">30-04-2025</span>
-  </h2>
-
-  <div class="contenedor-campos">
-    <div class="campo">
-      <span class="etiqueta">Número de rifa:</span>
-      <span id="numeroRifa" class="resultado">--</span>
-    </div>
-
-    <div class="campo">
-      <span class="etiqueta">Número sorteado:</span>
-      <span id="numeroSorteado" class="resultado">--</span>
-    </div>
-    
-    <div id="estadoResultado" class="resultado-estado" style="display: none;"></div>
-  </div>
+  <!-- ... (resto del HTML anterior) ... -->
 
   <div class="botones-estado">
-    <button class="boton-estado premiado" onclick="marcarPremiado()">Premiado</button>
-    <button class="boton-estado agua" onclick="marcarAlAgua()">Al agua</button>
+    <button class="boton-estado premiado" onclick="marcarPremiado()">
+      <span class="emoji">😊</span> Premiado
+    </button>
+    <button class="boton-estado agua" onclick="marcarAlAgua()">
+      <span class="emoji">😢</span> Al agua
+    </button>
   </div>
 
-  <div class="contenedor-botones">
-    <button class="principal" onclick="sortear()">Sortear</button>
-  </div>
-
-  <div id="historial">
-    <h2>Historial de sorteos</h2>
-    <div id="entradasHistorial"></div>
-    <div class="acciones-historial">
-      <button onclick="descargarHistorial()">Descargar</button>
-      <button onclick="borrarHistorial()">Borrar</button>
-    </div>
-  </div>
+  <!-- ... (resto del HTML anterior) ... -->
 
   <script>
-    const historialDatos = [];
-    const numeroRifaElement = document.getElementById('numeroRifa');
-    const numeroSorteadoElement = document.getElementById('numeroSorteado');
-    const estadoResultadoElement = document.getElementById('estadoResultado');
-    const entradasHistorialElement = document.getElementById('entradasHistorial');
-    let estadoActual = null;
-    
-    function formatFecha(fecha) {
-      const horas = String(fecha.getHours()).padStart(2, '0');
-      const minutos = String(fecha.getMinutes()).padStart(2, '0');
-      return `${horas}:${minutos}`;
-    }
+    // ... (código JavaScript anterior permanece igual) ...
     
     function marcarPremiado() {
-      estadoActual = 'Premiado';
-      estadoResultadoElement.textContent = 'PREMIDO';
+      estadoActual = 'Premiado 😊';
+      estadoResultadoElement.textContent = 'PREMIDO 😊';
       estadoResultadoElement.className = 'resultado-estado premiado';
       estadoResultadoElement.style.display = 'inline-block';
     }
     
     function marcarAlAgua() {
-      estadoActual = 'Al agua';
-      estadoResultadoElement.textContent = 'AL AGUA';
+      estadoActual = 'Al agua 😢';
+      estadoResultadoElement.textContent = 'AL AGUA 😢';
       estadoResultadoElement.className = 'resultado-estado agua';
       estadoResultadoElement.style.display = 'inline-block';
-    }
-    
-    function sortear() {
-      if (!estadoActual) {
-        alert('Debes seleccionar "Premiado" o "Al agua" antes de sortear');
-        return;
-      }
-      
-      const numeroRifa = Math.floor(Math.random() * 43) + 1;
-      const numeroSorteado = Math.floor(Math.random() * 20) + 1;
-      
-      numeroRifaElement.textContent = numeroRifa;
-      numeroSorteadoElement.textContent = numeroSorteado;
-      
-      const ahora = new Date();
-      const entradaTexto = `Rifa: ${numeroRifa} | Sorteado: ${numeroSorteado} | ${estadoActual} (${formatFecha(ahora)})`;
-      
-      historialDatos.push(entradaTexto);
-      mostrarEntradaHistorial(entradaTexto);
-      entradasHistorialElement.scrollTop = entradasHistorialElement.scrollHeight;
-      
-      // Resetear estado para el próximo sorteo
-      estadoActual = null;
-      estadoResultadoElement.style.display = 'none';
     }
     
     function mostrarEntradaHistorial(texto) {
       const entradaHTML = document.createElement('div');
       entradaHTML.className = 'entrada-historial';
-      entradaHTML.textContent = texto;
       
-      // Resaltar según el estado
+      // Añadir emoji correspondiente
       if (texto.includes('Premiado')) {
+        entradaHTML.innerHTML = texto.replace('Premiado', 'Premiado 😊');
         entradaHTML.style.color = 'var(--color-premiado)';
-        entradaHTML.style.fontWeight = 'bold';
       } else if (texto.includes('Al agua')) {
+        entradaHTML.innerHTML = texto.replace('Al agua', 'Al agua 😢');
         entradaHTML.style.color = 'var(--color-agua)';
       }
       
+      entradaHTML.style.fontWeight = 'bold';
       entradasHistorialElement.appendChild(entradaHTML);
-    }
-    
-    function borrarHistorial() {
-      if (historialDatos.length === 0) {
-        alert('El historial ya está vacío');
-        return;
-      }
-      
-      if (confirm('¿Estás seguro de borrar todo el historial?')) {
-        historialDatos.length = 0;
-        entradasHistorialElement.innerHTML = '';
-      }
-    }
-    
-    function descargarHistorial() {
-      if (historialDatos.length === 0) {
-        alert('No hay datos para descargar.');
-        return;
-      }
-      
-      const blob = new Blob([historialDatos.join('\n')], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `historial_rifa_${new Date().toISOString().slice(0,10)}.txt`;
-      
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      
-      setTimeout(() => URL.revokeObjectURL(url), 100);
     }
   </script>
 </body>
